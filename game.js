@@ -39,8 +39,12 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(b => b.addEventListener('click', () => {
     let playerSelection = b.textContent;
     let computerSelection = computerPlay();
-    console.log(playRound(playerSelection, computerSelection));
+    result.textContent = playRound(playerSelection, computerSelection);
 }));
+
+const body = document.querySelector('body');
+const result = document.createElement('div');
+body.appendChild(result);
 
 
 
