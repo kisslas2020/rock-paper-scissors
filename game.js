@@ -1,11 +1,14 @@
 let scoreOfPlayer;
 let scoreOfComputer;
 const options = ["Rock", "Paper", "Scissors"];
-const buttons = document.querySelectorAll('button');
+const wrapper = document.createElement('div');
+wrapper.setAttribute('id', 'wrapper');
 const buttonDiv = document.querySelector('#button-div');
+const buttons = document.querySelectorAll('button');
 const body = document.querySelector('body');
 const resultDiv = document.createElement('div');
 resultDiv.setAttribute('id', 'result-div');
+buttonDiv.appendChild(resultDiv);
 const resultPara = document.createElement('p');
 const newGameButton = document.createElement('button');
 newGameButton.setAttribute('id', 'new-game');
@@ -23,16 +26,14 @@ newGameButton.addEventListener('click', game);
 function game() {
     scoreOfPlayer = 0;
     scoreOfComputer = 0;
-    if (document.querySelector('#button-div') === null) {
-        buttons.forEach(b => buttonDiv.appendChild(b));
-        body.appendChild(buttonDiv);
-    }
-    if (document.querySelector('#result-div') !== null) {
-        body.removeChild(resultDiv);
+    if (document.querySelectorAll('.selection') === null) {
+        buttons.forEach(btn => buttonDiv.appendChild(btn));
     }
     if (document.querySelector('#new-game') !== null) {
-        body.removeChild(newGameButton);
+        buttonDiv.removeChild(newGameButton);
     }
+    let results = document.querySelectorAll('#result-div p');
+    results.forEach(r => resultDiv.removeChild(r));
 }
 
 function playRound(selection) {
@@ -60,7 +61,7 @@ function computerPlay() {
 }
 
 function printScore(winnerOfRound) {
-    console.log(winnerOfRound);
+    document.createElement('p');
 }
 
 
