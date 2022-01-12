@@ -17,9 +17,15 @@ const resultDiv = document.createElement('div');
 resultDiv.setAttribute('id', 'result-div');
 wrapper.appendChild(resultDiv);
 
+const scoreDiv = document.createElement('div');
+scoreDiv.setAttribute('id', 'score-div');
 
 const para = document.createElement('p');
-resultDiv.appendChild(para);
+para.style.fontSize = '30px';
+para.style.fontWeight = 'bold';
+resultDiv.appendChild(scoreDiv);
+resultDiv.insertBefore(para, scoreDiv);
+
 
 const newGameButton = document.createElement('button');
 newGameButton.setAttribute('id', 'new-game');
@@ -46,10 +52,10 @@ function game() {
     if (document.querySelector('#new-game') !== null) {
         buttonDiv.removeChild(newGameButton);
     }
-    let results = document.querySelectorAll('#result-div p');
-    results.forEach(r => resultDiv.removeChild(r));
-    para.textContent = '';
-    resultDiv.appendChild(para);
+    resultDiv.removeChild(para);
+    para.textContent = `The score is You: ${scoreOfPlayer} - The Computer: ${scoreOfComputer}.`
+    resultDiv.appendChild(scoreDiv);
+    resultDiv.insertBefore(para, scoreDiv);
 }
 
 function playRound(selection) {
@@ -81,6 +87,7 @@ function computerPlay() {
 function printScore(winnerOfRound, playerSelection, computerSelection) {
     para.textContent = `The score is You: ${scoreOfPlayer} - The Computer: ${scoreOfComputer}.`
     let round = document.createElement('p');
+    round.classList.add('round');
     round.style.padding = 0;
     round.style.margin = 0;
     if (winnerOfRound === 'player') {
@@ -90,14 +97,16 @@ function printScore(winnerOfRound, playerSelection, computerSelection) {
     } else {
         round.textContent = `${countRound++}. round: It\`s a draw, you both chose ${playerSelection}`;
     }
-    resultDiv.appendChild(round);
+    scoreDiv.appendChild(round);
 
 }
 
 function announceWinner() {
     buttons.forEach(button => buttonDiv.removeChild(button));
-    let results = document.querySelectorAll('#result-div p');
-    results.forEach(r => resultDiv.removeChild(r));
+    resultDiv.removeChild(para);
+    let scores = document.querySelectorAll('#score-div p');
+    scores.forEach(s => scoreDiv.removeChild(s));
+    resultDiv.removeChild(scoreDiv);
     let winner = scoreOfPlayer > scoreOfComputer ? 'You' : 'The Computer';
     para.textContent = `The score is ${scoreOfPlayer} - ${scoreOfComputer} \nThe winner is ${winner}`;
     resultDiv.appendChild(para);
